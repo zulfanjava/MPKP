@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "607570398022",
+    "project_id": "mpkps-c7d4f",
+    "storage_bucket": "mpkps-c7d4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607570398022:android:fdee0cc05dd1397820b347",
+        "android_client_info": {
+          "package_name": "com.example.mpkps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ4pUHJm6MDS7nwQaoPhAlKzqFLCmAfRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:mpkps/reusbale_widgets/reusable_widgets.dart';
 import 'package:mpkps/screens/home_screen.dart';
 import 'package:mpkps/utils/colors_util.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -12,9 +12,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                    reusableTextField("Enter Email", Icons.person_outlined, true,
+                    reusableTextField("Enter Email", Icons.person_outlined, false,
                    _emailTextController, suffixIconOnPressed: () {  }),
                   const SizedBox(
                     height: 20,
@@ -57,10 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  signInSignUpButton(context, false, () {
-                    Navigator.push(context,
-                     MaterialPageRoute(builder: (context) => Homescreen()));
-                  })
+                  signInSignUpButton(context, false, _auth, _emailTextController, _passwordTextController)
 
                 ],
               ),

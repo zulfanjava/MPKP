@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mpkps/reusbale_widgets/reusable_widgets.dart';
 import 'package:mpkps/screens/signup_screen.dart';
 import 'package:mpkps/utils/colors_util.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInScreen extends StatefulWidget {
   
@@ -13,6 +14,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen>{
+  
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
@@ -49,7 +52,8 @@ class _SignInScreenState extends State<SignInScreen>{
                   SizedBox(
                     height: 20,
                   ),
-                  signInSignUpButton(context, true, () {}),
+                 signInSignUpButton(context, true, _auth, _emailTextController, _passwordTextController),
+
                   signUpOption()
                 ],
               ),
