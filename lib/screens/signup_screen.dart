@@ -46,11 +46,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                    reusableTextField("Enter username", Icons.person_outlined, false,
-                   _userNameTextController, suffixIconOnPressed: () {  }),
-                  const SizedBox(
-                    height: 20,
-                  ),
                     reusableTextField("Enter Email", Icons.person_outlined, false,
                    _emailTextController, suffixIconOnPressed: () {  }),
                   const SizedBox(
