@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/SenaraiKenderaan.dart';
-import 'package:flutter_application_1/screens/DaftarKenderaan.dart';
-import 'package:flutter_application_1/screens/DaftarPemandu.dart';
-import 'package:flutter_application_1/screens/SenaraiPemandu.dart';
-import 'package:flutter_application_1/screens/DaftarStaff.dart';
-import 'package:flutter_application_1/screens/SenaraiStaff.dart';
+import '/screens/SenaraiKenderaan.dart';
+import '/screens/DaftarKenderaan.dart';
+import '/screens/DaftarPemandu.dart';
+import '/screens/SenaraiPemandu.dart';
+import '/screens/DaftarStaff.dart';
+import '/screens/SenaraiStaff.dart';
 
 class HomePage extends StatelessWidget {
 

@@ -49,36 +49,38 @@ Container signInSignUpButton(BuildContext context, bool isLogin, FirebaseAuth _a
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
     child: ElevatedButton(
-      onPressed: () async {
-        try {
-          UserCredential userCredential;
-          final NavigatorState navigator = Navigator.of(context);
-          if (isLogin) {
-            userCredential = await _auth.signInWithEmailAndPassword(
-              email: _emailTextController.text,
-              password: _passwordTextController.text
-            );
-            print("You have signed in");
-          } else {
-            userCredential = await _auth.createUserWithEmailAndPassword(
-              email: _emailTextController.text,
-              password: _passwordTextController.text
-            );
-            print("You have signed up");
+        onPressed: () async {
+          try {
+            UserCredential userCredential;
+            final NavigatorState navigator = Navigator.of(context);
+            if (isLogin) {
+              userCredential = await _auth.signInWithEmailAndPassword(
+                  email: _emailTextController.text,
+                  password: _passwordTextController.text
+              );
+              print("You have signed in");
+            } else {
+              userCredential = await _auth.createUserWithEmailAndPassword(
+                  email: _emailTextController.text,
+                  password: _passwordTextController.text
+              );
+              print("You have signed up");
+            }
+            // User successfully signed in/up
+            // Navigate to home screen or dashboard
+            print("Navigating to Homescreen");
+            navigator.push(MaterialPageRoute(builder: (context) => const Homescreen()));
+          } on FirebaseAuthException catch (e) {
+            if (e.code == 'user-not-found') {
+              print('No user found for that email.');
+            } else if (e.code == 'wrong-password') {
+              print('Wrong password provided for that user.');
+            } else if (e.code == 'invalid-email') {
+              print('The email address is badly formatted.');
+            }
           }
-          // User successfully signed in/up
-          // Navigate to home screen or dashboard
-          print("Navigating to Homescreen");
-          navigator.push(MaterialPageRoute(builder: (context) => const Homescreen()));
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'user-not-found') {
-            print('No user found for that email.');
-          } else if (e.code == 'wrong-password') {
-            print('Wrong password provided for that user.');
-          }
-        }
-      },
-      child: Text(
+        },
+        child: Text(
         isLogin? 'LOG IN' : 'SIGN UP',
         style: const TextStyle(
           color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
