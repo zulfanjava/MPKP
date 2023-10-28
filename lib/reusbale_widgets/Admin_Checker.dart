@@ -15,7 +15,7 @@ Future<bool> checkIfUserIsAdmin(User? user) async {
   );
 
   // actually connect to database
-  await conn.connect();
+  await conn.connect();//error : MySQLServerException (MySQLServerException [1045]: Access denied for user 'root'@'172.20.10.5' (using password: YES))
 
   final result = await conn.execute(
       'SELECT role FROM users WHERE uid = ?', [user.uid] as Map<String, dynamic>?);
