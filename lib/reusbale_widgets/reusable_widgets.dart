@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../screens/MainPage.dart';
 import '/screens/home_screen.dart';
+import 'Admin_Checker.dart';
 
 Image logoWidget(String imageName) {
   return Image.asset(
@@ -66,10 +68,19 @@ Container signInSignUpButton(BuildContext context, bool isLogin, FirebaseAuth _a
               );
               print("You have signed up");
             }
+
             // User successfully signed in/up
+            // Check if the user is an admin or a normal user
+            final bool isAdmin = await checkIfUserIsAdmin(userCredential.user); // Add this line
+
             // Navigate to home screen or dashboard
-            print("Navigating to Homescreen");
-            navigator.push(MaterialPageRoute(builder: (context) => const Homescreen()));
+            if (isAdmin) { // Add this line
+              print("Navigating to MainPage");
+              navigator.push(MaterialPageRoute(builder: (context) => MainPage()));
+            } else { // Add this line
+              print("Navigating to Homescreen");
+              navigator.push(MaterialPageRoute(builder: (context) => const Homescreen()));
+            } // Add this line
           } on FirebaseAuthException catch (e) {
             if (e.code == 'user-not-found') {
               print('No user found for that email.');
