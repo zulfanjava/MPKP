@@ -1,27 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mysql1/mysql1.dart';
+import 'package:mysql_client/mysql_client.dart';
 
 Future<bool> checkIfUserIsAdmin(User? user) async {
   if (user == null) {
     return false;
   }
 
-  final conn = await MySqlConnection.connect(ConnectionSettings(
+  final conn = await MySQLConnection.createConnection(
     host: '172.20.10.3',
     port: 3306,
-    user: 'root',
+    userName: 'root',
     password: 'wadihan0610',
-    db: 'mpkps',
-  ));
+    databaseName: 'mpkps',
+  );
 
-  final results = await conn.query( //ERROR : SocketException (SocketException: Socket has been closed)
-      'SELECT role FROM users WHERE uid = ?', [user.uid]);
+  // actually connect to database
+  await conn.connect();
+
+  final result = await conn.execute(
+      'SELECT role FROM users WHERE uid = ?', [user.uid] as Map<String, dynamic>?);
 
   await conn.close();
 
-  if (results.isNotEmpty) {
-    final row = results.first;
-    final String role = row[0];
+  if (result.rows.isNotEmpty) {
+    final row = result.rows.first;
+    final String? role = row.colAt(0);
     return role == 'admin';
   } else {
     return false;
