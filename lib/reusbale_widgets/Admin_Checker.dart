@@ -1,30 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mysql_client/mysql_client.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Add this line
 
 Future<bool> checkIfUserIsAdmin(User? user) async {
   if (user == null) {
     return false;
   }
 
-  final conn = await MySQLConnection.createConnection(
-    host: '172.20.10.3',
-    port: 3306,
-    userName: 'root',
-    password: 'wadihan0610',
-    databaseName: 'mpkps',
-  );
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // actually connect to database
-  await conn.connect();//error : MySQLServerException (MySQLServerException [1045]: Access denied for user 'root'@'172.20.10.5' (using password: YES))
+  final DocumentSnapshot docSnap = await firestore.collection('users').doc(user.uid).get();
 
-  final result = await conn.execute(
-      'SELECT role FROM users WHERE uid = ?', [user.uid] as Map<String, dynamic>?);
-
-  await conn.close();
-
-  if (result.rows.isNotEmpty) {
-    final row = result.rows.first;
-    final String? role = row.colAt(0);
+  if (docSnap.exists) {
+    final Map<String, dynamic>? data = docSnap.data() as Map<String, dynamic>?;
+    final String? role = data?['role'];
     return role == 'admin';
   } else {
     return false;
