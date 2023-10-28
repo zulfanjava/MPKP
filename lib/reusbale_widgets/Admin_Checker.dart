@@ -7,14 +7,14 @@ Future<bool> checkIfUserIsAdmin(User? user) async {
   }
 
   final conn = await MySqlConnection.connect(ConnectionSettings(
-    host: 'localhost',
+    host: '172.20.10.3',
     port: 3306,
-    user: 'your_username',
-    password: 'your_password',
-    db: 'your_database',
+    user: 'root',
+    password: 'wadihan0610',
+    db: 'mpkps',
   ));
 
-  final results = await conn.query(
+  final results = await conn.query( //ERROR : SocketException (SocketException: Socket has been closed)
       'SELECT role FROM users WHERE uid = ?', [user.uid]);
 
   await conn.close();
