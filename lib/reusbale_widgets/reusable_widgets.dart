@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../screens/MainPage.dart';
 import '/screens/home_screen.dart';
-import 'Admin_Checker.dart';
+import 'admin_Checker.dart';
 
 Image logoWidget(String imageName) {
   return Image.asset(

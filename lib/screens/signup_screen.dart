@@ -13,7 +13,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth man1 = FirebaseAuth.instance;
   
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  signInSignUpButton(context, false, _auth, _emailTextController, _passwordTextController)
+                  signInSignUpButton(context, false, man1, _emailTextController, _passwordTextController)
 
                 ],
               ),
